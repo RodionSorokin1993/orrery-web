@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useSyncExternalStore } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useSyncExternalStore } from 'react'
 import {
   THEME_EVENT,
   THEME_STORAGE_KEY,
@@ -60,6 +60,12 @@ export function ThemeToggle({ labels }: { labels: Labels }) {
     }
     applyTheme(next)
     window.dispatchEvent(new Event(THEME_EVENT))
+  }, [])
+
+  // A language switch re-renders the root layout, which resets the attributes on <html>, and the
+  // inline theme script does not run again on client navigation. Re-apply before paint.
+  useLayoutEffect(() => {
+    applyTheme(readPreference())
   }, [])
 
   // Keep following the OS setting while the preference is "system".

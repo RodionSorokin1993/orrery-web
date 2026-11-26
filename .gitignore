@@ -44,5 +44,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# local draft of the next commit message, used by `git ship`
-/.commit-message
+# local drafts for `git ship`: branch name, commit message and pull request description
+/.ship/
