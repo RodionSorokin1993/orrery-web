@@ -1,0 +1,87 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 0;
+  padding: 0;
+  list-style: none;
+  border-block-start: var(--hairline) solid var(--color-border);
+}
+
+/* Four features read better as a 2 x 2 grid than as 3 + 1. */
+@media (min-width: 52rem) {
+  .grid[data-count='4'] {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 72rem) {
+  .grid[data-count='4'] {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.card {
+  container-type: inline-size;
+  display: grid;
+  align-content: start;
+  gap: var(--space-xs);
+  padding: var(--space-l) var(--space-m) var(--space-l) 0;
+  border-block-end: var(--hairline) solid var(--color-border);
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-block-end: var(--space-s);
+}
+
+.index {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: var(--tracking-caps);
+  color: var(--color-muted);
+}
+
+.icon {
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  padding: 0.45rem;
+  border: var(--hairline) solid var(--color-border);
+  border-radius: 50%;
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: rotate var(--dur-slow) var(--ease-out);
+}
+
+.icon :global(.fill) {
+  fill: var(--color-accent);
+  stroke: none;
+}
+
+.card:hover .icon {
+  rotate: 30deg;
+}
+
+.title {
+  font-size: var(--step-2);
+}
+
+.body {
+  color: var(--color-muted);
+}
+
+/* Container query: wide cards get a bit more breathing room and larger text. */
+@container (min-width: 22rem) {
+  .title {
+    font-size: var(--step-3);
+  }
+
+  .body {
+    font-size: var(--step-1);
+    line-height: var(--leading-snug);
+  }
+}

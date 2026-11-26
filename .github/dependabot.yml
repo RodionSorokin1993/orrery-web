@@ -1,0 +1,17 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      next-and-react:
+        patterns: ['next', 'react', 'react-dom', '@types/react*', 'eslint-config-next']
+      sanity:
+        patterns: ['sanity', '@sanity/*', 'next-sanity']
+      testing:
+        patterns: ['vitest', '@vitest/*', '@testing-library/*', '@playwright/test', '@axe-core/*']
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

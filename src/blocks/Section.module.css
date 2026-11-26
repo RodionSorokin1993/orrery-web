@@ -1,0 +1,27 @@
+/* Shared rhythm for block sections. */
+
+.section {
+  padding-block: var(--space-2xl);
+}
+
+.header {
+  display: grid;
+  gap: var(--space-s);
+  max-inline-size: 46rem;
+  margin-block-end: var(--space-xl);
+}
+
+.heading {
+  font-size: var(--step-4);
+}
+
+.intro {
+  font-size: var(--step-1);
+  line-height: var(--leading-snug);
+  color: var(--color-muted);
+}
+
+.rule {
+  border: 0;
+  border-block-start: var(--hairline) solid var(--color-border);
+}

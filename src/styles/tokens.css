@@ -1,0 +1,118 @@
+/*
+ * Design tokens. Components read these custom properties and never hard-code values.
+ * Contrast of every text pair is at least 4.5:1 and chart colors at least 3:1 in both themes.
+ */
+
+:root {
+  /* Typography */
+  --font-serif: var(--font-newsreader), 'Iowan Old Style', Georgia, serif;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Fluid type scale: 1.2 ratio on small screens, 1.25 on large */
+  --step--2: clamp(0.72rem, 0.7rem + 0.08vw, 0.77rem);
+  --step--1: clamp(0.83rem, 0.81rem + 0.12vw, 0.9rem);
+  --step-0: clamp(1rem, 0.97rem + 0.17vw, 1.1rem);
+  --step-1: clamp(1.2rem, 1.15rem + 0.27vw, 1.375rem);
+  --step-2: clamp(1.44rem, 1.35rem + 0.45vw, 1.72rem);
+  --step-3: clamp(1.73rem, 1.58rem + 0.73vw, 2.15rem);
+  --step-4: clamp(2.07rem, 1.83rem + 1.2vw, 2.95rem);
+  --step-5: clamp(2.49rem, 2.07rem + 2.1vw, 4.2rem);
+
+  --leading-tight: 1.08;
+  --leading-snug: 1.3;
+  --leading-body: 1.6;
+  --tracking-caps: 0.12em;
+
+  /* Fluid space scale */
+  --space-3xs: clamp(0.25rem, 0.23rem + 0.1vw, 0.31rem);
+  --space-2xs: clamp(0.5rem, 0.47rem + 0.12vw, 0.56rem);
+  --space-xs: clamp(0.75rem, 0.71rem + 0.2vw, 0.87rem);
+  --space-s: clamp(1rem, 0.95rem + 0.25vw, 1.15rem);
+  --space-m: clamp(1.5rem, 1.42rem + 0.4vw, 1.75rem);
+  --space-l: clamp(2rem, 1.88rem + 0.6vw, 2.35rem);
+  --space-xl: clamp(3rem, 2.8rem + 1vw, 3.6rem);
+  --space-2xl: clamp(4rem, 3.6rem + 2vw, 5.5rem);
+  --space-3xl: clamp(6rem, 5.2rem + 4vw, 9rem);
+
+  /* Layout */
+  --container-max: 74rem;
+  --container-text: 42rem;
+  --gutter: clamp(1.25rem, 0.6rem + 3vw, 3rem);
+  --header-height: 4rem;
+
+  /* Shape */
+  --radius-s: 6px;
+  --radius-m: 12px;
+  --radius-l: 20px;
+  --radius-pill: 999px;
+  --hairline: 1px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 150ms;
+  --dur-base: 280ms;
+  --dur-slow: 700ms;
+
+  /* Light theme (default) */
+  color-scheme: light;
+  --color-bg: #f5f2ea;
+  --color-surface: #fbf9f4;
+  --color-sunken: #ece7db;
+  --color-ink: #16181f;
+  --color-muted: #545866;
+  --color-border: #ddd7c9;
+  --color-border-strong: #8a8474;
+  --color-accent: #2b3a86;
+  --color-accent-hover: #1f2b69;
+  --color-on-accent: #ffffff;
+  --color-brass: #7c5a12;
+  --color-brass-soft: #c9a65a;
+  --color-focus: #2b3a86;
+  --color-selection: color-mix(in srgb, var(--color-accent) 18%, transparent);
+
+  --chart-1: #2b3a86;
+  --chart-2: #a86f0c;
+  --chart-3: #1b7a70;
+  --chart-4: #b23c5e;
+  --chart-grid: #ddd7c9;
+
+  --orrery-ring: color-mix(in srgb, var(--color-ink) 22%, transparent);
+  --orrery-ring-strong: color-mix(in srgb, var(--color-ink) 48%, transparent);
+  --orrery-body-1: var(--color-accent);
+  --orrery-body-2: var(--color-brass-soft);
+  --orrery-body-3: var(--color-ink);
+  --orrery-sun: var(--color-brass-soft);
+
+  --shadow-raised: 0 1px 0 rgb(22 24 31 / 0.04), 0 8px 24px -12px rgb(22 24 31 / 0.18);
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-bg: #0e1016;
+  --color-surface: #151924;
+  --color-sunken: #0a0c11;
+  --color-ink: #ece8df;
+  --color-muted: #a5a9b6;
+  --color-border: #262b38;
+  --color-border-strong: #6b7080;
+  --color-accent: #a9b6ff;
+  --color-accent-hover: #c6cfff;
+  --color-on-accent: #0e1016;
+  --color-brass: #d8b25a;
+  --color-brass-soft: #d8b25a;
+  --color-focus: #a9b6ff;
+
+  --chart-1: #a9b6ff;
+  --chart-2: #e1b456;
+  --chart-3: #5cc7ba;
+  --chart-4: #f28aa8;
+  --chart-grid: #262b38;
+
+  --orrery-ring: color-mix(in srgb, var(--color-ink) 18%, transparent);
+  --orrery-ring-strong: color-mix(in srgb, var(--color-ink) 40%, transparent);
+  --orrery-body-3: #f4efe2;
+
+  --shadow-raised: 0 1px 0 rgb(0 0 0 / 0.4), 0 12px 32px -16px rgb(0 0 0 / 0.7);
+}

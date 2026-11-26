@@ -1,0 +1,33 @@
+.notFound {
+  display: grid;
+  gap: var(--space-xl);
+  align-items: center;
+  padding-block: var(--space-3xl) var(--space-xl);
+}
+
+@media (min-width: 52rem) {
+  .notFound {
+    grid-template-columns: 1.2fr 1fr;
+  }
+}
+
+.copy {
+  display: grid;
+  gap: var(--space-m);
+  justify-items: start;
+}
+
+.title {
+  font-size: var(--step-5);
+}
+
+.body {
+  font-size: var(--step-1);
+  color: var(--color-muted);
+}
+
+.art {
+  inline-size: min(100%, 24rem);
+  justify-self: center;
+  opacity: 0.85;
+}

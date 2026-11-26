@@ -1,0 +1,95 @@
+.hero {
+  position: relative;
+  overflow: clip;
+  padding-block: var(--space-2xl) var(--space-xl);
+  border-block-end: var(--hairline) solid var(--color-border);
+}
+
+.inner {
+  display: grid;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+@media (min-width: 60rem) {
+  .inner {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  }
+}
+
+.copy {
+  display: grid;
+  gap: var(--space-m);
+  justify-items: start;
+}
+
+.heading {
+  font-size: var(--step-5);
+  font-weight: 420;
+  letter-spacing: -0.025em;
+  max-inline-size: 14ch;
+}
+
+.subheading {
+  max-inline-size: 36rem;
+  font-size: var(--step-1);
+  line-height: var(--leading-snug);
+  color: var(--color-muted);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-block-start: var(--space-2xs);
+}
+
+.art {
+  inline-size: min(100%, 34rem);
+  justify-self: center;
+}
+
+@media (max-width: 59.99rem) {
+  /* On small screens the art sits behind the end of the copy, as a quiet backdrop. */
+  .art {
+    inline-size: min(88%, 26rem);
+    margin-block-start: calc(-1 * var(--space-l));
+    opacity: 0.9;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .copy > * {
+    animation: rise var(--dur-slow) var(--ease-out) both;
+  }
+
+  .copy > :nth-child(2) {
+    animation-delay: 60ms;
+  }
+
+  .copy > :nth-child(3) {
+    animation-delay: 120ms;
+  }
+
+  .copy > :nth-child(4) {
+    animation-delay: 180ms;
+  }
+
+  .art {
+    animation: fade 1.2s var(--ease-out) both;
+  }
+}
+
+/* Movement only, no opacity: the heading is the LCP element and must paint immediately. */
+@keyframes rise {
+  from {
+    translate: 0 0.75rem;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    scale: 0.96;
+  }
+}

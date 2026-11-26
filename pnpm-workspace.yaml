@@ -1,0 +1,5 @@
+ignoredBuiltDependencies:
+  - sharp
+  - unrs-resolver
+overrides:
+  '@portabletext/plugin-list-index': '2.0.28'

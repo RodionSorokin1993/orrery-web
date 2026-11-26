@@ -1,0 +1,64 @@
+.prose {
+  max-inline-size: var(--container-text);
+  font-size: var(--step-0);
+  line-height: 1.7;
+}
+
+.large {
+  font-size: var(--step-1);
+}
+
+.prose > * + * {
+  margin-block-start: 1.1em;
+}
+
+.prose h2 {
+  margin-block-start: 2em;
+  font-size: var(--step-3);
+}
+
+.prose h3 {
+  margin-block-start: 1.6em;
+  font-size: var(--step-2);
+}
+
+.prose h2 + *,
+.prose h3 + * {
+  margin-block-start: 0.6em;
+}
+
+.prose a {
+  color: var(--color-accent);
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+}
+
+.prose a:hover {
+  text-decoration-color: currentColor;
+}
+
+.prose ul,
+.prose ol {
+  padding-inline-start: 1.25em;
+}
+
+.prose li + li {
+  margin-block-start: 0.45em;
+}
+
+.prose li::marker {
+  color: var(--color-brass);
+}
+
+.prose strong {
+  font-weight: 600;
+}
+
+.prose blockquote {
+  margin-block: 2em;
+  padding-inline-start: var(--space-m);
+  border-inline-start: 2px solid var(--color-brass-soft);
+  font-family: var(--font-serif);
+  font-size: var(--step-2);
+  font-style: italic;
+  line-height: var(--leading-snug);
+}

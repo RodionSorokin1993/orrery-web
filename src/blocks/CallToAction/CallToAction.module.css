@@ -1,0 +1,51 @@
+.panel {
+  position: relative;
+  overflow: clip;
+  display: grid;
+  gap: var(--space-l);
+  margin-block: var(--space-2xl);
+  padding: var(--space-xl) var(--space-l);
+  border: var(--hairline) solid var(--color-border);
+  border-radius: var(--radius-l);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-raised);
+}
+
+@media (min-width: 48rem) {
+  .panel {
+    grid-template-columns: 1.4fr 1fr;
+    align-items: center;
+    padding: var(--space-2xl) var(--space-xl);
+  }
+}
+
+.copy {
+  display: grid;
+  gap: var(--space-s);
+  justify-items: start;
+}
+
+.heading {
+  font-size: var(--step-4);
+}
+
+.body {
+  max-inline-size: 34rem;
+  font-size: var(--step-1);
+  line-height: var(--leading-snug);
+  color: var(--color-muted);
+}
+
+.art {
+  display: none;
+}
+
+@media (min-width: 48rem) {
+  .art {
+    display: block;
+    inline-size: 120%;
+    margin-block: -25%;
+    margin-inline-end: -30%;
+    opacity: 0.75;
+  }
+}

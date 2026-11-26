@@ -1,0 +1,79 @@
+.orrery {
+  position: relative;
+  aspect-ratio: 1;
+  inline-size: 100%;
+  contain: layout paint;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: visible;
+}
+
+/* Each ring is its own layer, so the rotation runs on the compositor instead of repainting SVG. */
+.ring {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animated .ring {
+    animation: orbit var(--period, 120s) linear infinite;
+    animation-direction: var(--direction, normal);
+  }
+}
+
+@keyframes orbit {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.ringPath {
+  fill: none;
+  stroke: var(--orrery-ring);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.ringDashed {
+  stroke-dasharray: 2 6;
+}
+
+.star {
+  fill: var(--orrery-ring-strong);
+}
+
+.sun {
+  fill: var(--orrery-sun);
+}
+
+.sunHalo {
+  fill: none;
+  stroke: var(--orrery-sun);
+  stroke-opacity: 0.4;
+  vector-effect: non-scaling-stroke;
+}
+
+.accent {
+  fill: var(--orrery-body-1);
+  stroke: var(--orrery-body-1);
+}
+
+.brass {
+  fill: var(--orrery-body-2);
+  stroke: var(--orrery-body-2);
+}
+
+.ink {
+  fill: var(--orrery-body-3);
+  stroke: var(--orrery-body-3);
+}
+
+.planetRing {
+  fill: none;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}

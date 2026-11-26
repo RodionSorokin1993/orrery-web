@@ -1,0 +1,43 @@
+.heading {
+  margin-block-end: var(--space-l);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  font-weight: 500;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: var(--space-l);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  padding-block-start: var(--space-s);
+  border-block-start: 2px solid var(--color-ink);
+}
+
+/* Visual order: number first, then label. Source order keeps <dt> before <dd> for screen readers. */
+.value {
+  order: -1;
+  font-family: var(--font-serif);
+  font-size: var(--step-5);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: lining-nums;
+}
+
+.label {
+  font-weight: 550;
+}
+
+.detail {
+  font-size: var(--step--1);
+  color: var(--color-muted);
+}

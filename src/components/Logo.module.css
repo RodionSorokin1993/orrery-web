@@ -1,0 +1,40 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.mark {
+  inline-size: 1.75rem;
+  block-size: 1.75rem;
+  flex: none;
+}
+
+.orbit {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  opacity: 0.55;
+}
+
+.sun {
+  fill: var(--color-brass-soft);
+}
+
+.planet {
+  fill: var(--color-accent);
+  transform-origin: 16px 16px;
+  transition: rotate var(--dur-slow) var(--ease-out);
+}
+
+a:hover .planet {
+  rotate: 70deg;
+}
+
+.wordmark {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
