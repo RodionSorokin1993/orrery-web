@@ -100,8 +100,46 @@ export interface CtaBlock extends BlockBase<'cta'> {
   link: Link
 }
 
+export interface ComparisonColumn {
+  _key: string
+  key: string
+  label: string
+  /** Short note under the label, shown as a badge when the column is highlighted. */
+  tagline?: string
+  highlighted?: boolean
+}
+
+export type ComparisonCell =
+  | { _key: string; kind: 'text'; value: string }
+  | { _key: string; kind: 'yes' | 'no' }
+  | { _key: string; kind: 'level'; level: 1 | 2 | 3 }
+
+export interface ComparisonRow {
+  _key: string
+  label: string
+  hint?: string
+  /** Consecutive rows with the same group share one group heading. */
+  group?: string
+  /** One cell per column, in column order. */
+  cells: ComparisonCell[]
+}
+
+export interface ComparisonBlock extends BlockBase<'comparison'> {
+  heading: string
+  intro?: string
+  columns: ComparisonColumn[]
+  rows: ComparisonRow[]
+  footnote?: string
+}
+
 export type Block =
-  HeroBlock | FeatureGridBlock | ChartBlock | StatsBlock | RichTextBlock | CtaBlock
+  | HeroBlock
+  | FeatureGridBlock
+  | ChartBlock
+  | ComparisonBlock
+  | StatsBlock
+  | RichTextBlock
+  | CtaBlock
 
 export type BlockType = Block['_type']
 

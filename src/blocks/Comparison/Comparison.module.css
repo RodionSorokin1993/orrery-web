@@ -1,0 +1,226 @@
+/* ---------- Scroll container ---------- */
+
+.scroller {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-timeline: --comparison-scroll inline;
+  border-radius: var(--radius-m);
+
+  /* Scroll shadow on the right edge: visible only while more content is hidden. */
+  background:
+    linear-gradient(to left, var(--color-bg) 40%, transparent) right / 2.5rem 100% no-repeat local,
+    radial-gradient(farthest-side at 100% 50%, rgb(0 0 0 / 0.14), transparent) right / 0.9rem 100%
+      no-repeat scroll;
+}
+
+.scroller:focus-visible {
+  outline-offset: 4px;
+}
+
+/* Wide screens: no horizontal scroll, so the header row can stick to the top of the viewport. */
+@media (min-width: 60rem) {
+  .scroller {
+    overflow: visible;
+    background: none;
+  }
+}
+
+/* ---------- Table ---------- */
+
+.table {
+  --highlight: color-mix(in srgb, var(--color-accent) 7%, var(--color-bg));
+
+  inline-size: 100%;
+  min-inline-size: 40rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--step--1);
+  font-variant-numeric: tabular-nums;
+}
+
+.table th,
+.table td {
+  padding: 0.85rem 1rem;
+  border-block-end: var(--hairline) solid var(--color-border);
+  text-align: start;
+  vertical-align: top;
+}
+
+/* The first column lines up with the section heading above the table. */
+.table :is(.corner, .rowHeader, .groupHeading) {
+  padding-inline-start: 0;
+}
+
+/* Pinned like the row labels, so column headers slide under it on narrow screens. */
+.corner {
+  inline-size: 28%;
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 3;
+  background: var(--color-bg);
+}
+
+.columnHeader {
+  position: relative;
+  isolation: isolate;
+  font-weight: 400;
+  vertical-align: bottom;
+  background: var(--color-bg);
+}
+
+@media (min-width: 60rem) {
+  .columnHeader,
+  .corner {
+    position: sticky;
+    inset-block-start: var(--header-height);
+  }
+
+  .columnHeader {
+    z-index: 2;
+  }
+}
+
+.columnLabel {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: var(--step-2);
+  line-height: 1.1;
+}
+
+.tagline {
+  display: block;
+  margin-block-start: 0.35rem;
+  color: var(--color-muted);
+}
+
+.badge {
+  display: inline-block;
+  margin-block-start: 0.5rem;
+  padding: 0.15rem 0.6rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-size: var(--step--2);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/*
+ * Highlighted column: the <col> paints one tinted band through every row, group rows included.
+ * Header cells are opaque because they stick on wide screens, so the highlighted one draws the
+ * top of the band itself, with rounded corners.
+ */
+.highlightedColumn {
+  background: var(--highlight);
+}
+
+.columnHeader[data-highlighted]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-start-start-radius: var(--radius-m);
+  border-start-end-radius: var(--radius-m);
+  background: var(--highlight);
+}
+
+.table .groupHeading {
+  padding-block: 1.6rem 0.6rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  font-weight: 500;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* ---------- Row and group labels: pinned while the table scrolls sideways ---------- */
+
+.rowHeader,
+.groupHeading {
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 1;
+  background: var(--color-bg);
+}
+
+.rowHeader {
+  font-weight: 550;
+}
+
+.hint {
+  display: block;
+  margin-block-start: 0.2rem;
+  font-weight: 400;
+  color: var(--color-muted);
+}
+
+/* Shadow on the pinned column fades in as soon as the table is scrolled. */
+@supports (animation-timeline: scroll()) {
+  .rowHeader,
+  .groupHeading,
+  .corner {
+    animation: pinned-shadow linear both;
+    animation-timeline: --comparison-scroll;
+    animation-range: 0 2rem;
+  }
+}
+
+@keyframes pinned-shadow {
+  from {
+    box-shadow: none;
+  }
+  to {
+    box-shadow: 10px 0 12px -10px rgb(0 0 0 / 0.25);
+  }
+}
+
+/* ---------- Cell content ---------- */
+
+.cell {
+  color: var(--color-ink);
+}
+
+.icon,
+.iconMuted {
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.icon {
+  stroke: var(--chart-3);
+}
+
+.iconMuted {
+  stroke: var(--color-border-strong);
+}
+
+.level {
+  display: inline-flex;
+  gap: 0.3rem;
+  padding-block-start: 0.35rem;
+}
+
+.dot,
+.dotOn {
+  inline-size: 0.6rem;
+  block-size: 0.6rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-accent);
+}
+
+.dotOn {
+  background: var(--color-accent);
+}
+
+.footnote {
+  margin-block-start: var(--space-s);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+}

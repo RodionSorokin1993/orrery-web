@@ -16,9 +16,9 @@ artwork, and an internal content QA tool for editors.
 
 ## Highlights
 
-- **Headless CMS, modeled as code.** Pages are built from six typed blocks (hero, feature grid,
-  interactive chart, stats, rich text, call to action). The Sanity schema lives in this repo with
-  validation, previews and an embedded Studio at `/studio`.
+- **Headless CMS, modeled as code.** Pages are built from seven typed blocks (hero, feature
+  grid, interactive chart, comparison table, stats, rich text, call to action). The Sanity schema
+  lives in this repo with validation, previews and an embedded Studio at `/studio`.
 - **Runs with zero setup.** Without Sanity credentials the site renders typed fixture content, so
   anyone can clone and run it. Add a project id and the same code reads from Sanity.
 - **Next.js 16, the current way.** Cache Components with `'use cache'`, tagged cache entries and a
@@ -29,6 +29,9 @@ artwork, and an internal content QA tool for editors.
 - **An accessible chart, without a chart library.** Scales, ticks and hit testing are small pure
   functions. The plot works with a mouse, a keyboard and a screen reader, and ships its data as a
   real table.
+- **A comparison table that works on a phone.** The header row sticks on desktop; on small
+  screens the table scrolls sideways with its labels pinned. Scroll shadows are CSS scroll-driven
+  animations, and the block ships no client JavaScript.
 - **Generative design.** Every page gets its own orrery, generated from a seed and rendered as SVG.
   The same generator draws the Open Graph image for each route.
 - **Internal tooling.** One set of Content QA rules (broken links, missing translations, SEO
@@ -38,12 +41,14 @@ artwork, and an internal content QA tool for editors.
 
 ![Interactive chart with the keyboard readout](docs/screenshots/chart.webp)
 
+![Model comparison table with the recommended column highlighted](docs/screenshots/comparison.webp)
+
 ## Quality
 
 | Check                    | Result                                                               |
 | ------------------------ | -------------------------------------------------------------------- |
 | Lighthouse (mobile)      | Performance 97 to 99, Accessibility 100, Best practices 100, SEO 100 |
-| Unit and component tests | 59 tests with Vitest and Testing Library                             |
+| Unit and component tests | 66 tests with Vitest and Testing Library                             |
 | End-to-end tests         | 29 Playwright tests, including axe on six pages                      |
 | Content QA               | 0 errors, 0 warnings on the demo content                             |
 
@@ -145,7 +150,7 @@ workflow for coding agents.
 - Sanity Live and Visual Editing overlays in the Presentation tool
 - Typed GROQ results with Sanity TypeGen
 - View Transitions between pages
-- More blocks: comparison table, pricing, FAQ with structured data
+- More blocks: pricing, FAQ with structured data
 
 ## License
 

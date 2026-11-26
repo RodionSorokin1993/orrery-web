@@ -1,5 +1,6 @@
 import type { Block, Page, Post, SiteSettings } from '../types'
 import { createPortableText } from './pt'
+import { no, row, yes } from './table'
 
 type PageInput = Omit<Page, '_id' | '_type' | 'language' | 'translations'>
 type PostInput = Omit<Post, '_id' | '_type' | 'language' | 'translations' | 'readingMinutes'>
@@ -209,6 +210,56 @@ export const pages: PageInput[] = [
             body: 'Nuestro modelo más capaz, para investigación, análisis y trabajos largos de varios pasos.',
           },
         ],
+      },
+      {
+        _key: 'models-compare',
+        _type: 'comparison',
+        heading: 'Compara los modelos',
+        intro:
+          'Las mismas trazas y controles de seguridad en todos los modelos. Elige por profundidad, velocidad y precio.',
+        columns: [
+          { _key: 'col-perigee', key: 'perigee', label: 'Perigee', tagline: 'El más rápido' },
+          {
+            _key: 'col-meridian',
+            key: 'meridian',
+            label: 'Meridian',
+            tagline: 'Aquí empieza la mayoría',
+            highlighted: true,
+          },
+          { _key: 'col-apogee', key: 'apogee', label: 'Apogee', tagline: 'El más capaz' },
+        ],
+        rows: [
+          row('depth', 'Profundidad de razonamiento', 'Rendimiento', [1, 2, 3]),
+          row(
+            'latency',
+            'Latencia mediana',
+            'Rendimiento',
+            ['240 ms', '560 ms', '1,3 s'],
+            'Para una petición de 2K tokens',
+          ),
+          row('context', 'Ventana de contexto', 'Rendimiento', [
+            '128K tokens',
+            '500K tokens',
+            '1M tokens',
+          ]),
+          row('traces', 'Trazas verificables', 'Funciones', [yes, yes, yes]),
+          row('confidence', 'Confianza calibrada', 'Funciones', [yes, yes, yes]),
+          row('citations', 'Citas por pasaje', 'Funciones', [no, yes, yes]),
+          row('cloud', 'Funciona en tu propia nube', 'Funciones', [yes, yes, yes]),
+          row(
+            'price',
+            'Precio de entrada',
+            'Precio',
+            ['0,40 US$', '2 US$', '12 US$'],
+            'Por millón de tokens',
+          ),
+          row('best', 'Ideal para', 'Precio', [
+            'Clasificación, extracción y respuestas cortas',
+            'La mayoría de las funciones de producto',
+            'Investigación y análisis largos',
+          ]),
+        ],
+        footnote: 'Datos ilustrativos de un producto ficticio.',
       },
       {
         _key: 'models-chart',

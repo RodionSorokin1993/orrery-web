@@ -1,5 +1,6 @@
 import type { Block, Page, Post, SiteSettings } from '../types'
 import { createPortableText } from './pt'
+import { no, row, yes } from './table'
 
 type PageInput = Omit<Page, '_id' | '_type' | 'language' | 'translations'>
 type PostInput = Omit<Post, '_id' | '_type' | 'language' | 'translations' | 'readingMinutes'>
@@ -208,6 +209,50 @@ export const pages: PageInput[] = [
             body: 'Our most capable model, for research, analysis and long, multi-step work.',
           },
         ],
+      },
+      {
+        _key: 'models-compare',
+        _type: 'comparison',
+        heading: 'Compare the models',
+        intro:
+          'The same traces and safety controls in every model. Choose by depth, speed and price.',
+        columns: [
+          { _key: 'col-perigee', key: 'perigee', label: 'Perigee', tagline: 'Fastest' },
+          {
+            _key: 'col-meridian',
+            key: 'meridian',
+            label: 'Meridian',
+            tagline: 'Most teams start here',
+            highlighted: true,
+          },
+          { _key: 'col-apogee', key: 'apogee', label: 'Apogee', tagline: 'Most capable' },
+        ],
+        rows: [
+          row('depth', 'Reasoning depth', 'Performance', [1, 2, 3]),
+          row(
+            'latency',
+            'Median latency',
+            'Performance',
+            ['240 ms', '560 ms', '1.3 s'],
+            'For a 2K-token prompt',
+          ),
+          row('context', 'Context window', 'Performance', [
+            '128K tokens',
+            '500K tokens',
+            '1M tokens',
+          ]),
+          row('traces', 'Inspectable traces', 'Features', [yes, yes, yes]),
+          row('confidence', 'Calibrated confidence', 'Features', [yes, yes, yes]),
+          row('citations', 'Passage-level citations', 'Features', [no, yes, yes]),
+          row('cloud', 'Runs in your own cloud', 'Features', [yes, yes, yes]),
+          row('price', 'Input price', 'Pricing', ['$0.40', '$2', '$12'], 'Per million tokens'),
+          row('best', 'Best for', 'Pricing', [
+            'Classification, extraction, short replies',
+            'Most product features',
+            'Research and long analysis',
+          ]),
+        ],
+        footnote: 'Illustrative data for a fictional product.',
       },
       {
         _key: 'models-chart',

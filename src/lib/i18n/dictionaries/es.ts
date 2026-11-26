@@ -38,6 +38,11 @@ export const es: Dictionary = {
     readoutAt: 'En {x}',
     chartLabel: 'Gráfico de líneas interactivo: {title}',
   },
+  comparison: {
+    included: 'Incluido',
+    notIncluded: 'No incluido',
+    level: '{level} de 3',
+  },
   notFound: {
     eyebrow: 'Error 404',
     title: 'Esta órbita está vacía',

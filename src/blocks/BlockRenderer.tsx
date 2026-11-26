@@ -3,6 +3,7 @@ import type { Dictionary } from '@/lib/i18n'
 import { type Locale } from '@/lib/i18n/config'
 import { CallToAction } from './CallToAction/CallToAction'
 import { ChartBlock } from './ChartBlock/ChartBlock'
+import { Comparison } from './Comparison/Comparison'
 import { FeatureGrid } from './FeatureGrid/FeatureGrid'
 import { Hero } from './Hero/Hero'
 import { RichText } from './RichText/RichText'
@@ -38,6 +39,8 @@ export function BlockRenderer({ blocks, locale, dictionary, seed }: Props) {
                 labels={dictionary.chart}
               />
             )
+          case 'comparison':
+            return <Comparison key={block._key} block={block} labels={dictionary.comparison} />
           case 'stats':
             return <Stats key={block._key} block={block} />
           case 'richText':

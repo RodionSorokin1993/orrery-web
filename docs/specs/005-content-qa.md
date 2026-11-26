@@ -24,6 +24,7 @@ before a reader finds them, and engineers need the same checks in CI.
 | `broken-internal-link` | error    | Internal links point to an existing page or post in the same locale        |
 | `duplicate-slug`       | error    | Slugs are unique per type and locale                                       |
 | `chart-data`           | error    | Series share x values, x increases, values are finite, at least two points |
+| `comparison-shape`     | error    | Comparison rows have one cell per column, at most one highlighted column   |
 | `empty-page`           | error    | Pages have at least one block                                              |
 | `missing-translation`  | warning  | Every document exists in every locale                                      |
 | `seo-description`      | warning  | Description exists and is 50 to 160 characters                             |

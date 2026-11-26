@@ -6,7 +6,7 @@ export const siteConfig = {
     url: 'https://www.linkedin.com/in/rodion-sorokin-1a4bb2178/',
   },
   repositoryUrl:
-    process.env.NEXT_PUBLIC_REPOSITORY_URL ?? 'https://github.com/rodion-sorokin/orrery-web',
+    process.env.NEXT_PUBLIC_REPOSITORY_URL ?? 'https://github.com/RodionSorokin1993/orrery-web',
 }
 
 /** Absolute origin used for canonical URLs, the sitemap and Open Graph. */

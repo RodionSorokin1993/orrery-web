@@ -13,7 +13,7 @@ team and strict enough that the front end never has to guess.
 - **R1.** Document types: `page`, `post`, `siteSettings`. Each has a `language` field managed by
   `@sanity/document-internationalization` (document-level translations).
 - **R2.** `page.blocks` accepts exactly these block types: `hero`, `featureGrid`, `chartBlock`,
-  `stats`, `richText`, `cta`.
+  `comparison`, `stats`, `richText`, `cta`.
 - **R3.** The front end consumes a **normalized domain model** (`src/content/types.ts`), not raw
   Sanity documents. GROQ projections map Sanity shapes into it (`slug.current` → `slug`,
   translation metadata → `translations`).
@@ -26,14 +26,15 @@ team and strict enough that the front end never has to guess.
 
 ## Block reference
 
-| Block         | Purpose                        | Key fields                                                                      |
-| ------------- | ------------------------------ | ------------------------------------------------------------------------------- |
-| `hero`        | Page opener with the only `h1` | `eyebrow`, `heading`, `subheading`, `primaryCta`, `secondaryCta`, `patternSeed` |
-| `featureGrid` | 2 to 6 features with icons     | `heading`, `intro`, `features[]{title, body, icon}`                             |
-| `chartBlock`  | Interactive line chart         | `heading`, `intro`, `chart{...}`, `takeaway`, `note`                            |
-| `stats`       | Headline numbers               | `heading`, `items[]{value, label, detail}`                                      |
-| `richText`    | Long-form Portable Text        | `content`                                                                       |
-| `cta`         | Closing call to action         | `heading`, `body`, `link`                                                       |
+| Block         | Purpose                                                  | Key fields                                                                      |
+| ------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `hero`        | Page opener with the only `h1`                           | `eyebrow`, `heading`, `subheading`, `primaryCta`, `secondaryCta`, `patternSeed` |
+| `featureGrid` | 2 to 6 features with icons                               | `heading`, `intro`, `features[]{title, body, icon}`                             |
+| `chartBlock`  | Interactive line chart                                   | `heading`, `intro`, `chart{...}`, `takeaway`, `note`                            |
+| `comparison`  | Side-by-side table, see [007](./007-comparison-table.md) | `heading`, `columns[]`, `rows[]{label, group, cells[]}`, `footnote`             |
+| `stats`       | Headline numbers                                         | `heading`, `items[]{value, label, detail}`                                      |
+| `richText`    | Long-form Portable Text                                  | `content`                                                                       |
+| `cta`         | Closing call to action                                   | `heading`, `body`, `link`                                                       |
 
 ## Acceptance criteria
 

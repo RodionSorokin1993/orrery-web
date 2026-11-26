@@ -53,6 +53,16 @@ function toSanityBlock(block: Block): Record<string, unknown> {
           })),
         },
       }
+    case 'comparison':
+      return {
+        ...block,
+        columns: block.columns.map((column) => ({ _type: 'comparisonColumn', ...column })),
+        rows: block.rows.map((row) => ({
+          _type: 'comparisonRow',
+          ...row,
+          cells: row.cells.map((cell) => ({ _type: 'comparisonCell', ...cell })),
+        })),
+      }
     default:
       return { ...block }
   }

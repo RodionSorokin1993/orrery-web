@@ -4,9 +4,11 @@ import { DashboardIcon } from '@sanity/icons/Dashboard'
 import { LaunchIcon } from '@sanity/icons/Launch'
 import { NumberIcon } from '@sanity/icons/Number'
 import { StarIcon } from '@sanity/icons/Star'
+import { ThListIcon } from '@sanity/icons/ThList'
 import { defineArrayMember, defineField, defineType } from 'sanity'
 import { validateChartSpec } from '../../content-qa/chart'
-import type { ChartSpec } from '../../content/types'
+import { validateComparison } from '../../content-qa/comparison'
+import type { ChartSpec, ComparisonBlock } from '../../content/types'
 
 const VALUE_FORMATS = [
   { title: 'Number', value: 'number' },
@@ -263,4 +265,135 @@ export const cta = defineType({
   },
 })
 
-export const blockTypes = [hero, featureGrid, chartBlock, stats, richText, cta]
+export const comparison = defineType({
+  name: 'comparison',
+  title: 'Comparison table',
+  type: 'object',
+  icon: ThListIcon,
+  description: 'Two to four products side by side. Every row needs one cell per column.',
+  validation: (rule) =>
+    rule.custom((value) => {
+      const problems = validateComparison(value as Partial<ComparisonBlock> | undefined)
+      return problems.length === 0 ? true : problems.join(' ')
+    }),
+  fields: [
+    defineField({ name: 'heading', type: 'string', validation: (r) => r.required() }),
+    defineField({ name: 'intro', type: 'text', rows: 2 }),
+    defineField({
+      name: 'columns',
+      type: 'array',
+      validation: (r) => r.required().min(2).max(4),
+      of: [
+        defineArrayMember({
+          type: 'object',
+          name: 'comparisonColumn',
+          fields: [
+            defineField({ name: 'label', type: 'string', validation: (r) => r.required() }),
+            defineField({
+              name: 'key',
+              type: 'string',
+              description: 'Short id, unique within this table.',
+              validation: (r) => r.required(),
+            }),
+            defineField({ name: 'tagline', type: 'string', validation: (r) => r.max(32) }),
+            defineField({
+              name: 'highlighted',
+              title: 'Recommended column',
+              type: 'boolean',
+              initialValue: false,
+            }),
+          ],
+          preview: { select: { title: 'label', subtitle: 'tagline' } },
+        }),
+      ],
+    }),
+    defineField({
+      name: 'rows',
+      type: 'array',
+      validation: (r) => r.required().min(1),
+      of: [
+        defineArrayMember({
+          type: 'object',
+          name: 'comparisonRow',
+          fields: [
+            defineField({ name: 'label', type: 'string', validation: (r) => r.required() }),
+            defineField({ name: 'hint', type: 'string' }),
+            defineField({
+              name: 'group',
+              type: 'string',
+              description: 'Rows with the same group appear under one heading.',
+            }),
+            defineField({
+              name: 'cells',
+              type: 'array',
+              description: 'One cell per column, in the same order as the columns.',
+              of: [
+                defineArrayMember({
+                  type: 'object',
+                  name: 'comparisonCell',
+                  fields: [
+                    defineField({
+                      name: 'kind',
+                      type: 'string',
+                      initialValue: 'text',
+                      options: {
+                        list: [
+                          { title: 'Text', value: 'text' },
+                          { title: 'Included', value: 'yes' },
+                          { title: 'Not included', value: 'no' },
+                          { title: 'Level (1 to 3 dots)', value: 'level' },
+                        ],
+                        layout: 'radio',
+                        direction: 'horizontal',
+                      },
+                      validation: (r) => r.required(),
+                    }),
+                    defineField({
+                      name: 'value',
+                      type: 'string',
+                      hidden: ({ parent }) =>
+                        (parent as { kind?: string } | undefined)?.kind !== 'text',
+                    }),
+                    defineField({
+                      name: 'level',
+                      type: 'number',
+                      options: { list: [1, 2, 3], layout: 'radio', direction: 'horizontal' },
+                      hidden: ({ parent }) =>
+                        (parent as { kind?: string } | undefined)?.kind !== 'level',
+                    }),
+                  ],
+                  preview: {
+                    select: { kind: 'kind', value: 'value', level: 'level' },
+                    prepare: ({ kind, value, level }) => ({
+                      title:
+                        kind === 'text'
+                          ? value
+                          : kind === 'level'
+                            ? `Level ${level ?? '?'} of 3`
+                            : kind === 'yes'
+                              ? 'Included'
+                              : 'Not included',
+                    }),
+                  },
+                }),
+              ],
+            }),
+          ],
+          preview: {
+            select: { title: 'label', subtitle: 'group' },
+          },
+        }),
+      ],
+    }),
+    defineField({ name: 'footnote', type: 'string' }),
+  ],
+  preview: {
+    select: { title: 'heading', count: 'columns.length' },
+    prepare: ({ title, count }) => ({
+      title,
+      subtitle: `Comparison table · ${count ?? 0} columns`,
+    }),
+  },
+})
+
+export const blockTypes = [hero, featureGrid, chartBlock, comparison, stats, richText, cta]

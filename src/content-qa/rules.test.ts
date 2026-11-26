@@ -69,6 +69,29 @@ describe('Content QA rules (spec 005)', () => {
     expect(issues[0]?.message).toMatch(/same x values/)
   })
 
+  it('reports a comparison row with a missing cell (spec 007, AC3)', () => {
+    const content = snapshot()
+    const table = page(content, 'models').blocks.find((block) => block._type === 'comparison')
+    if (table?._type !== 'comparison') throw new Error('fixture changed')
+    table.rows[0]!.cells.pop()
+
+    const [issue] = runContentQa(content)
+    expect(issue).toMatchObject({
+      ruleId: 'comparison-shape',
+      severity: 'error',
+      path: 'blocks[models-compare]',
+    })
+    expect(issue?.message).toMatch(/2 cells but the table has 3 columns/)
+  })
+
+  it('reports two highlighted comparison columns', () => {
+    const content = snapshot()
+    const table = page(content, 'models').blocks.find((block) => block._type === 'comparison')
+    if (table?._type !== 'comparison') throw new Error('fixture changed')
+    table.columns[0]!.highlighted = true
+    expect(idsOf(content)).toEqual(['comparison-shape'])
+  })
+
   it('reports empty pages', () => {
     const content = snapshot()
     page(content, 'about').blocks = []

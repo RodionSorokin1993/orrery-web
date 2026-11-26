@@ -36,6 +36,11 @@ export const en = {
     readoutAt: 'At {x}',
     chartLabel: 'Interactive line chart: {title}',
   },
+  comparison: {
+    included: 'Included',
+    notIncluded: 'Not included',
+    level: '{level} of 3',
+  },
   notFound: {
     eyebrow: 'Error 404',
     title: 'This orbit is empty',

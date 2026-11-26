@@ -23,6 +23,7 @@ the person asking for the feature, the person (or agent) building it, and the re
 | 004 | [Generative design](./004-generative-design.md)       | Implemented |
 | 005 | [Content QA tool](./005-content-qa.md)                | Implemented |
 | 006 | [Quality gates](./006-quality-gates.md)               | Implemented |
+| 007 | [Comparison table block](./007-comparison-table.md)   | Implemented |
 
 New specs start from [`_template.md`](./_template.md).
 

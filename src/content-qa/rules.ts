@@ -9,6 +9,7 @@ import type {
   SiteSettings,
 } from '../content/types'
 import { validateChartSpec } from './chart'
+import { validateComparison } from './comparison'
 
 export type Severity = 'error' | 'warning'
 
@@ -16,6 +17,7 @@ export type RuleId =
   | 'broken-internal-link'
   | 'duplicate-slug'
   | 'chart-data'
+  | 'comparison-shape'
   | 'empty-page'
   | 'missing-translation'
   | 'seo-description'
@@ -169,6 +171,25 @@ export const rules: Rule[] = [
               ? validateChartSpec(block.chart).map((problem) => ({
                   ...docInfo(page),
                   path: `blocks[${block._key}].chart`,
+                  message: problem,
+                }))
+              : [],
+          ),
+        ),
+      ),
+  },
+  {
+    id: 'comparison-shape',
+    severity: 'error',
+    description: 'Comparison tables need one cell per column in every row.',
+    check: ({ snapshot }) =>
+      locales.flatMap((locale) =>
+        snapshot[locale].pages.flatMap((page) =>
+          page.blocks.flatMap((block) =>
+            block._type === 'comparison'
+              ? validateComparison(block).map((problem) => ({
+                  ...docInfo(page),
+                  path: `blocks[${block._key}]`,
                   message: problem,
                 }))
               : [],
