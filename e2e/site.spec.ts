@@ -82,3 +82,18 @@ test.describe('SEO (spec 004, AC3)', () => {
     expect(robots).toContain('Disallow: /studio')
   })
 })
+
+test.describe('theme (spec 000, AC1)', () => {
+  test('keeps the chosen theme after switching language', async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'light' })
+    await page.goto('/en')
+    const toggle = page.getByRole('button', { name: /Color theme/ })
+    await toggle.click() // system -> light
+    await toggle.click() // light -> dark
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+
+    await page.getByRole('link', { name: 'ES, Español' }).first().click()
+    await expect(page).toHaveURL(/\/es$/)
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+  })
+})

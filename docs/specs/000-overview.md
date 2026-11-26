@@ -36,6 +36,14 @@ editors, and the quality gates that keep all of it fast and accessible.
 - **R6.** The embedded Sanity Studio lives at `/studio` and never ships to visitors of the site.
 - **R7.** Client JavaScript is limited to interactive islands: chart, theme toggle, mobile
   navigation and locale switcher.
+- **R8.** The reader's theme choice (system, light or dark) survives page loads and client
+  navigation, a language switch included, with no flash of the other theme.
+
+## Acceptance criteria
+
+| ID  | Criterion                                           | Verified by        |
+| --- | --------------------------------------------------- | ------------------ |
+| AC1 | A dark theme choice survives switching the language | `e2e/site.spec.ts` |
 
 ## Routes
 
