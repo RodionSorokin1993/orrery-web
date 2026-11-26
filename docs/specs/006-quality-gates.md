@@ -24,6 +24,8 @@ features, so they are enforced on every pull request instead of audited once bef
 - **R3.** End-to-end tests run axe on key pages and fail on any violation.
 - **R4.** The production build must not ship the Studio bundle to site routes.
 - **R5.** Pull requests reference the spec they implement (see the PR template).
+- **R6.** No page scrolls sideways, on a phone or on a desktop. Wide content such as tables
+  scrolls inside its own container.
 
 ## Acceptance criteria
 
@@ -32,3 +34,4 @@ features, so they are enforced on every pull request instead of audited once bef
 | AC1 | CI fails when any gate fails                                | `.github/workflows/ci.yml` |
 | AC2 | Lighthouse assertions are versioned with the code           | `lighthouserc.json`        |
 | AC3 | axe runs on home, a content page, the blog index and a post | `e2e/a11y.spec.ts`         |
+| AC4 | Key pages are never wider than the viewport, phone included | `e2e/layout.spec.ts`       |

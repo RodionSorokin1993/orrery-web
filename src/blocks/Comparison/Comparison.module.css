@@ -1,6 +1,11 @@
 /* ---------- Scroll container ---------- */
 
 .scroller {
+  /*
+   * The visually hidden cell labels are absolutely positioned. Without a positioned ancestor
+   * inside the scroller they escape its clipping and make the whole page scroll sideways.
+   */
+  position: relative;
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-timeline: --comparison-scroll inline;

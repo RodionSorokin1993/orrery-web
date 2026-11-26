@@ -47,11 +47,14 @@ Editors need to change rows and prices without a developer.
 | AC2 | Yes, no and level cells have accessible text in the page language | `src/blocks/Comparison/Comparison.test.tsx` |
 | AC3 | A row with a missing cell is reported as an error                 | `src/content-qa/rules.test.ts`              |
 | AC4 | No axe violations on the models page in both locales              | `e2e/a11y.spec.ts`                          |
+| AC5 | On a phone the models page does not scroll sideways               | `e2e/layout.spec.ts`                        |
 
 ## Edge cases
 
 - A table without groups renders as a single body.
 - Long text cells wrap; the table has a minimum width so columns never collapse to a word.
+- The scroll container is the containing block for the visually hidden cell labels, so they are
+  clipped with the table and never make the page itself scroll sideways.
 
 ## Do not touch
 

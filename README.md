@@ -1,5 +1,7 @@
 # Orrery Labs
 
+**Live site:** [orrery-web-topaz.vercel.app](https://orrery-web-topaz.vercel.app)
+
 Marketing site for **Orrery Labs**, a fictional AI company, built the way a production
 marketing site should be: Next.js 16 with Cache Components, a Sanity headless CMS with a
 block-based page builder, English and Spanish, an accessible interactive chart, generative
@@ -49,7 +51,7 @@ artwork, and an internal content QA tool for editors.
 | ------------------------ | -------------------------------------------------------------------- |
 | Lighthouse (mobile)      | Performance 97 to 99, Accessibility 100, Best practices 100, SEO 100 |
 | Unit and component tests | 66 tests with Vitest and Testing Library                             |
-| End-to-end tests         | 29 Playwright tests, including axe on six pages                      |
+| End-to-end tests         | 41 Playwright tests: axe and a no-sideways-scroll check on six pages |
 | Content QA               | 0 errors, 0 warnings on the demo content                             |
 
 CI runs lint, types, formatting, content QA, unit tests, a production build, end-to-end tests and
