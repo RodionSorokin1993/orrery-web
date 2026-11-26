@@ -3,7 +3,13 @@ updates:
   - package-ecosystem: npm
     directory: /
     schedule:
-      interval: weekly
+      interval: monthly
+    # Major versions are planned upgrades with their own spec, not routine bumps.
+    # TypeScript 7 and ESLint 10 also wait for typescript-eslint and the React ESLint plugins,
+    # and @types/node follows the Node 22 runtime.
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
     groups:
       next-and-react:
         patterns: ['next', 'react', 'react-dom', '@types/react*', 'eslint-config-next']

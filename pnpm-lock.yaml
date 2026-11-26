@@ -4,9 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  '@portabletext/plugin-list-index': 2.0.28
-
 importers:
 
   .:
