@@ -1,20 +1,26 @@
 # Orrery Labs
 
-**Live site:** [orrery-web-topaz.vercel.app](https://orrery-web-topaz.vercel.app)
+[![CI](https://github.com/RodionSorokin1993/orrery-web/actions/workflows/ci.yml/badge.svg)](https://github.com/RodionSorokin1993/orrery-web/actions/workflows/ci.yml)
+[![Live on Vercel](https://img.shields.io/badge/live-orrery--web--topaz.vercel.app-000?logo=vercel)](https://orrery-web-topaz.vercel.app)
+[![Lighthouse accessibility 100, enforced in CI](https://img.shields.io/badge/Lighthouse%20accessibility-100-0a7b3e)](lighthouserc.json)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
-Marketing site for **Orrery Labs**, a fictional AI company, built the way a production
-marketing site should be: Next.js 16 with Cache Components, a Sanity headless CMS with a
-block-based page builder, English and Spanish, an accessible interactive chart, generative
-artwork, and an internal content QA tool for editors.
+A production-style marketing site for a fictional AI lab, built to show how I approach frontend
+work: Next.js 16 with Cache Components, a headless CMS, English and Spanish, an accessible chart
+without a chart library, and CI that blocks accessibility, layout and performance regressions.
+
+**[Live site](https://orrery-web-topaz.vercel.app)** · [5-minute code tour](#a-5-minute-code-tour) ·
+[Decisions](docs/decisions) · [Specs](docs/specs) ·
+[A bug, start to finish](docs/postmortems/2026-11-26-sideways-scroll.md)
+
+![Demo: switching to the dark theme, the comparison table, the chart driven by the keyboard and the Spanish version](docs/screenshots/demo.webp)
 
 > Orrery Labs is not a real company. The brand, the people and every number on the site are
 > invented for this portfolio project.
 
-![Home page in light theme](docs/screenshots/home-light.webp)
-
-| Dark theme                                          | Spanish, on a phone                                          |
-| --------------------------------------------------- | ------------------------------------------------------------ |
-| ![Home page, dark](docs/screenshots/home-dark.webp) | ![Spanish home page on mobile](docs/screenshots/mobile.webp) |
+| Light theme                                           | Spanish, on a phone                                          |
+| ----------------------------------------------------- | ------------------------------------------------------------ |
+| ![Home page, light](docs/screenshots/home-light.webp) | ![Spanish home page on mobile](docs/screenshots/mobile.webp) |
 
 ## Highlights
 
@@ -41,18 +47,55 @@ artwork, and an internal content QA tool for editors.
 - **Spec-driven development.** Every feature started as a spec in [`docs/specs`](docs/specs), and
   every acceptance criterion points to the test that proves it.
 
+## A 5-minute code tour
+
+If you only have a few minutes, these files show the most:
+
+1. [`LineChart.tsx`](src/blocks/ChartBlock/LineChart.tsx): an interactive chart with no chart
+   library. Arrow keys, Home and End move between points, a live region reads the values, and the
+   same data is available as a table.
+2. [`scales.ts`](src/lib/chart/scales.ts): the chart's math as small pure functions (nice ticks,
+   linear and log scales, nearest-point lookup), with [tests](src/lib/chart/scales.test.ts).
+3. [`source-types.ts`](src/content/source-types.ts): one interface for content. The site runs on
+   typed fixtures with zero setup and on Sanity when credentials exist.
+4. [`content/index.ts`](src/content/index.ts) and [`api/revalidate`](src/app/api/revalidate/route.ts):
+   Cache Components in practice. Every reader is cached with fine-grained tags, and a signed
+   webhook expires only what changed.
+5. [`negotiate.ts`](src/lib/i18n/negotiate.ts) and [`proxy.ts`](src/proxy.ts): locale negotiation
+   by cookie, then `Accept-Language` with quality weights, as a pure and tested function.
+6. [`rules.ts`](src/content-qa/rules.ts): cross-document content checks written once and run in
+   two places, the Studio and CI.
+7. [`Comparison/`](src/blocks/Comparison): a responsive table with no client JavaScript, sticky on
+   desktop, with pinned labels and scroll-driven shadows on phones.
+8. [`e2e/`](e2e) and [`lighthouserc.json`](lighthouserc.json): the quality gates. axe on key pages,
+   no sideways scroll on phones, the theme kept across navigation, and Lighthouse budgets.
+
 ![Interactive chart with the keyboard readout](docs/screenshots/chart.webp)
 
 ![Model comparison table with the recommended column highlighted](docs/screenshots/comparison.webp)
 
+## Engineering decisions
+
+Short records of what I chose, what else I considered and what it costs:
+
+- [Content comes through one interface, fixtures or CMS](docs/decisions/0001-content-behind-an-interface.md)
+- [Cache everything, expire by tag from a signed webhook](docs/decisions/0002-cache-components-and-tags.md)
+- [Build the chart on small pure functions, not a library](docs/decisions/0003-chart-without-a-chart-library.md)
+- [CSS Modules and design tokens instead of Tailwind](docs/decisions/0004-css-modules-and-tokens.md)
+- [One document per language, with localized slugs](docs/decisions/0005-document-level-translations.md)
+- [Specs first, AI drafts, a human reviews](docs/decisions/0006-spec-driven-development-with-ai.md)
+
+When something breaks in production, it gets a short postmortem:
+[the models page scrolled sideways on phones](docs/postmortems/2026-11-26-sideways-scroll.md).
+
 ## Quality
 
-| Check                    | Result                                                               |
-| ------------------------ | -------------------------------------------------------------------- |
-| Lighthouse (mobile)      | Performance 97 to 99, Accessibility 100, Best practices 100, SEO 100 |
-| Unit and component tests | 66 tests with Vitest and Testing Library                             |
-| End-to-end tests         | 41 Playwright tests: axe and a no-sideways-scroll check on six pages |
-| Content QA               | 0 errors, 0 warnings on the demo content                             |
+| Check                    | Result                                                                |
+| ------------------------ | --------------------------------------------------------------------- |
+| Lighthouse (mobile)      | Performance 97 to 100, Accessibility 100, Best practices 100, SEO 100 |
+| Unit and component tests | 66 tests with Vitest and Testing Library                              |
+| End-to-end tests         | 42 Playwright tests: axe and a no-sideways-scroll check on six pages  |
+| Content QA               | 0 errors, 0 warnings on the demo content                              |
 
 CI runs lint, types, formatting, content QA, unit tests, a production build, end-to-end tests and
 Lighthouse CI with budgets ([`lighthouserc.json`](lighthouserc.json)) on every pull request.
@@ -156,5 +199,6 @@ workflow for coding agents.
 
 ## License
 
-MIT for the code. Fonts are licensed under the SIL Open Font License.
+MIT for the code. Fonts are licensed under the SIL Open Font License. Release notes are in the
+[changelog](CHANGELOG.md).
 Designed and built by [Rodion Sorokin](https://www.linkedin.com/in/rodion-sorokin-1a4bb2178/).

@@ -86,6 +86,9 @@ flowchart LR
   without accounts, and double as seed data (`pnpm sanity:seed`).
 - **No images from the CMS in v1:** all artwork is generated from a seed. See [004](./004-generative-design.md).
 
+Longer records with the options considered and the trade-offs live in
+[`docs/decisions`](../decisions).
+
 ## Do not touch
 
 - The `<!-- BEGIN:nextjs-agent-rules -->` block in `AGENTS.md`; `next dev` manages it.
